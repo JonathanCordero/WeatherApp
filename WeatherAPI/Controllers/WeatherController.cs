@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 [Route("api/[controller]")]
 public class WeatherController : ControllerBase{
 
-    private const string ApiKey = "N/A";//Not including my ApiKey in the github.
+    private const string ApiKey = "";//Not including my ApiKey in the github.
     private const string WeatherApiUrl = "http://api.weatherapi.com/v1/current.json";
     
     //https://api.weatherapi.com/v1/current.json?q=bronx&lang=English&key=??? example of the end request for reminder. Break.

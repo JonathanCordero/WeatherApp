@@ -31,13 +31,13 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>6.8.0_msvc2022_64</QtInstall>
-    <QtModules>core;gui;network;qmltest;testlib;uiplugin;uitools;widgets</QtModules>
+    <QtInstall>Qt6.8.1</QtInstall>
+    <QtModules>core;gui;network;widgets;uitools;uiplugin</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>6.8.0_msvc2022_64</QtInstall>
-    <QtModules>core;gui;qmltest;testlib;uiplugin;uitools;widgets</QtModules>
+    <QtInstall>Qt6.8.1</QtInstall>
+    <QtModules>core;gui;network;uiplugin;uitools;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -55,13 +55,25 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <IncludePath>C:\Qt\6.8.1\msvc2022_64\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Qt\6.8.1\msvc2022_64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Qt\6.8.0\msvc2022_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Qt\6.8.1\msvc2022_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalLibraryDirectories>C:\Qt\6.8.1\msvc2022_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>Qt6Network.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -89,10 +101,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="WeatherApp.qrc" />
-    <QtUic Include="WeatherApp.ui" />
     <QtMoc Include="WeatherApp.h" />
     <ClCompile Include="WeatherApp.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WeatherAPI\WeatherAPI.csproj">
+      <Project>{86495503-e8b4-4de2-8c94-4d3d398d2603}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="WeatherApp.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
